@@ -1,6 +1,6 @@
-name: mbt-sdl-ios
+name: mbt-wasmkit-ios
 version: 0.1.0
-description: APM project for mbt-sdl-ios
+description: APM project for mbt-wasmkit-ios
 author: connect0459
 dependencies:
   apm:

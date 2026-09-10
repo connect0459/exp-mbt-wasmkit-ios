@@ -5,9 +5,9 @@
 ## Related Links
 
 - Issues
-  - <!-- <https://github.com/connect0459/mbt-sdl-ios/issues/xxx> -->
+  - <!-- <https://github.com/connect0459/mbt-wasmkit-ios/issues/xxx> -->
 - PRs
-  - <!-- <https://github.com/connect0459/mbt-sdl-ios/pull/xxx> -->
+  - <!-- <https://github.com/connect0459/mbt-wasmkit-ios/pull/xxx> -->
 
 ## [Required] Overview
 

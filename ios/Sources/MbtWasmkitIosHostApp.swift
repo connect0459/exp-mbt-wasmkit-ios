@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct MbtSdlIosHostApp: App {
+struct MbtWasmkitIosHostApp: App {
   var body: some Scene {
     WindowGroup {
       ContentView()

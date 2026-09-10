@@ -9,7 +9,7 @@
 //   "moonbitlang/x@0.4.6",
 // }
 
-name = "connect0459/mbt_sdl_ios"
+name = "connect0459/mbt_wasmkit_ios"
 
 version = "0.1.0"
 

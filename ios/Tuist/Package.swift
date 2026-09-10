@@ -8,7 +8,7 @@ import PackageDescription
 #endif
 
 let package = Package(
-  name: "MbtSdlIosHost",
+  name: "MbtWasmkitIosHost",
   dependencies: [
     .package(url: "https://github.com/swiftwasm/WasmKit.git", exact: "0.3.1")
   ]

@@ -1,15 +1,15 @@
 import ProjectDescription
 
 let project = Project(
-  name: "MbtSdlIosHost",
+  name: "MbtWasmkitIosHost",
   organizationName: "dev.connect0459",
   settings: .settings(base: ["SWIFT_SUPPRESS_WARNINGS": "NO"]),
   targets: [
     .target(
-      name: "MbtSdlIosHost",
+      name: "MbtWasmkitIosHost",
       destinations: .iOS,
       product: .app,
-      bundleId: "dev.connect0459.MbtSdlIosHost",
+      bundleId: "dev.connect0459.MbtWasmkitIosHost",
       deploymentTargets: .iOS("18.0"),
       infoPlist: .extendingDefault(
         with: [

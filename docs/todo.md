@@ -1,4 +1,4 @@
-# todo - mbt-sdl-ios
+# todo - mbt-wasmkit-ios
 
 Current state: **Milestone 2 (MoonBit `wasm` → WasmKit → iOS simulator round trip) succeeded, its call-overhead concern is de-risked but not closed, and `guest.wasm`'s build is now automated.** Call overhead — bare scalar calls: 6.378 µs/call (~2,613 calls/60fps-frame); calls returning a heap-boxed tuple (closer to a real SDL3 call shape): 32.215 µs/call (~517 calls/60fps-frame). Both still leave headroom for a modest 2D game, but both are simulator-only measurements — see caveats in Milestone 2. Milestone 1 (MoonBit native → iOS FFI round trip) was verified infeasible on the current toolchain (moon 0.1.20260904 / moonc v0.10.12, 2026-09); its root cause is documented below, and Milestone 2 is the alternative route it motivated.
 
@@ -9,6 +9,7 @@ Current state: **Milestone 2 (MoonBit `wasm` → WasmKit → iOS simulator round
 - [x] `moon new` scaffold, renamed to `connect0459/mbt_sdl_ios`
 - [x] Ported `AGENTS.md`/`CLAUDE.md`, `.markdownlint.json`, `.pre-commit-config.yaml`, `apm.yml` (moonbitlang/skills), `.github/` (CI, publish, issue/PR templates), `justfile` from `starlark-mbt`/`urllib-mbt`
 - [x] Committed as separate concern-based commits
+- [x] **Renamed the whole project** `mbt-sdl-ios` / `mbt_sdl_ios` → `mbt-wasmkit-ios` / `mbt_wasmkit_ios` after Milestone 2 landed: "sdl" in the name named an architecture (MoonBit native → C-link SDL3) that Milestone 1 proved infeasible and this project no longer implements or attempts. Updated: module/repo directory name, top-level `.mbt` filenames, `moon.mod`, `cmd/main/moon.pkg`'s import comment, `apm.yml`, `README.mbt.md` (also rewritten to describe the actual wasm+WasmKit route instead of the abandoned native/SDL3 one), `ios/Project.swift` + `ios/Tuist/Package.swift` (target/package name `MbtSdlIosHost` → `MbtWasmkitIosHost`, bundle id to match), `ios/Sources/MbtSdlIosHostApp.swift` → `MbtWasmkitIosHostApp.swift`, `.github/PULL_REQUEST_TEMPLATE.md` + `ISSUE_TEMPLATE/FEATURE_REQUEST.md` repo URLs. Found the full set via `grep -rIl` for both the kebab-case and PascalCase spellings before touching anything, per the project's own "grep for all references before renaming" rule
 
 ## Milestone 1: Minimal FFI round trip (MoonBit native → Xcode link → iOS call)
 
