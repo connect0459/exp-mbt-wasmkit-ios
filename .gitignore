@@ -1,0 +1,13 @@
+.DS_Store
+_build/
+.mooncakes/
+.moonagent/
+
+# Coverage files
+*.coverage
+_coverage/
+
+# APM dependencies
+apm_modules/
+.agents/
+.claude/
