@@ -11,3 +11,9 @@ _coverage/
 apm_modules/
 .agents/
 .claude/
+
+# moonup toolchain pin (local experimentation only; do not force nightly on other clones)
+moonbit-version
+
+# moon build trace output
+trace.json
