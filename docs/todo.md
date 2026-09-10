@@ -1,6 +1,6 @@
 # todo - mbt-sdl-ios
 
-Current state: **Milestone 2 (MoonBit `wasm` → WasmKit → iOS simulator round trip) succeeded.** Milestone 1 (MoonBit native → iOS FFI round trip) was verified infeasible on the current toolchain (moon 0.1.20260904 / moonc v0.10.12, 2026-09); its root cause is documented below, and Milestone 2 is the alternative route it motivated.
+Current state: **Milestone 2 (MoonBit `wasm` → WasmKit → iOS simulator round trip) succeeded, and its call-overhead concern is de-risked but not closed** (7.674 µs/call on simulator, ~2,172 calls/60fps-frame headroom — see caveats in Milestone 2). Milestone 1 (MoonBit native → iOS FFI round trip) was verified infeasible on the current toolchain (moon 0.1.20260904 / moonc v0.10.12, 2026-09); its root cause is documented below, and Milestone 2 is the alternative route it motivated.
 
 ---
 
@@ -64,4 +64,12 @@ Goal: verify the alternative route surfaced by the `wasee-moon` survey — a Moo
 - [x] Re-verified after the Tuist switch: same `SWIFT_SUPPRESS_WARNINGS=NO` override needed, same `guest.wasm` bundling worked via Tuist's `resources: ["Resources/**"]` (Tuist's field name matches what xcodegen's docs claimed but xcodegen itself didn't honor), rebuilt, reinstalled, relaunched — **`increment(41) = 42` reproduced identically** on the same simulator
 - [x] `.gitignore`: added Tuist-generated artifacts (`ios/*.xcodeproj/`, `ios/*.xcworkspace/`, `ios/Derived/`, `ios/Tuist/.build/`) plus general Xcode/Swift entries (`xcuserdata/`, `*.hmap`, `*.dSYM`), cross-checked against `~/workspaces/digitalio/ecnavi-enquete-app/.gitignore` (a real Tuist-based iOS project) for parity; `Tuist/Package.resolved` is **not** ignored (kept for reproducible dependency versions, matching that project's convention). `ios/Resources/*.wasm` is ignored — it's a `moon build` artifact, not source
 - [ ] **Not yet solved**: `guest.wasm` is currently copied into `ios/Resources/` by hand after `moon build guest --target wasm --release`. No build-time automation (Tuist target script / justfile task) wires this up yet — a fresh clone cannot build a working app without manually running and copying the MoonBit build output first
-- [ ] **Not yet verified**: the real question this milestone was a prerequisite for — whether WasmKit's per-call interpreter overhead is acceptable for SDL3's per-frame draw-call/input-polling load, not just this single discrete call
+- [x] **Verified**: WasmKit per-call overhead, measured on the same `iPhone 17` / iOS 26.5 simulator
+  - Added `GuestBridge.benchmarkIncrement(iterations:)`: separates one-time module setup (`parseWasm` → `Engine` → `Store` → `instantiate`) from the per-call cost, then loops calling `increment` and times the loop with `CFAbsoluteTimeGetCurrent()`
+  - Result over 100,000 calls: **setup 0.322 ms** (one-time, e.g. app launch) / **total 767.362 ms** / **7.674 µs per call** → at a 60fps frame budget of 16.67 ms, that's headroom for **~2,172 such calls per frame**
+  - A real SDL3 frame (a few dozen draw calls, a handful of input-polling calls, one state-update call) is one to two orders of magnitude below that ceiling, so **on this evidence WasmKit's call overhead is not the bottleneck** for a game of this scope
+  - **Caveats that keep this from being a green light on its own**:
+    - Simulator only, not a physical device — the simulator runs as a native macOS process and is typically faster than real (especially older) iOS hardware; no device measurement exists yet
+    - `increment` is the cheapest possible probe: one `i32` in, one `i32` out, no allocation, no MoonBit GC involved. A real SDL3 call boundary (draw a sprite at (x, y) with a color, poll an input event) needs richer argument passing — likely writes into WasmKit's linear memory rather than a bare `i32` — which this measurement says nothing about
+    - Single-purpose microbenchmark run in isolation via `.task`, not inside an actual per-frame render loop competing with SwiftUI/UIKit's own work on the same thread
+  - Net effect: this **de-risks but does not close** the open question from Milestone 2's motivation — the call-overhead floor is low enough to proceed, but a follow-up spike with a richer call shape (e.g. passing a struct of coordinates) and a device run would be needed before trusting this for the actual SDL3 integration
