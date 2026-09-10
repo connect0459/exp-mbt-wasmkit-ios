@@ -1,0 +1,5 @@
+// import {
+//   "connect0459/mbt_sdl_ios" @lib,
+// }
+
+pkgtype(kind: "executable")
