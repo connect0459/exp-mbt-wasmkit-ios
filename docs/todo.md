@@ -47,6 +47,13 @@ Goal: verify whether a MoonBit `extern "C"` function can be built for native and
 - [x] Assessed relevance to this project: the same shape (MoonBit → `wasm` guest, SDL3 surface wrapped as host-side import functions, called from a Swift-side WASM runtime such as **WasmKit**) would sidestep every blocker recorded in Milestone 1, since it never touches the native/llvm backend at all
 - [ ] Open concern (not yet checked): `wasee-moon`'s guest/host boundary is for discrete, low-frequency I/O (USB control/bulk transfers). SDL3's game-loop shape (per-frame draw calls + input polling) is a different load profile across a Wasm import boundary — whether WasmKit's call overhead is acceptable for real-time rendering is unverified and would need its own spike before committing to this direction
 
+### Prior art: `CharlieTap/chasm` (Kotlin Multiplatform Wasm interpreter)
+
+- [x] Surveyed `github.com/CharlieTap/chasm` while considering whether Android support could reuse more than just the "wasm + host-side runtime" shape — a Wasm interpreter written in Kotlin Multiplatform, explicitly documented as "legal on Android and iOS" (interpreter, no JIT, so it doesn't hit the same platform restrictions native codegen would)
+  - Ships a Gradle plugin that reads a `.wasm` binary at build time and generates a matching Kotlin class/interface pair for its exports — closer to a typed binding generator than WasmKit's/Chicory's runtime-only APIs
+  - Because it's Kotlin Multiplatform (not JVM-only like Chicory, not Swift-only like WasmKit), it could in principle serve as **one shared host implementation for both iOS and Android**, replacing the "Swift+WasmKit on iOS, Java/Kotlin+Chicory on Android" per-platform split this project and `wasee-moon` each independently reached for their own single platform
+  - **Not pursued for this project**: using Chasm as the iOS host would mean the app itself is written against Kotlin Multiplatform (Kotlin/Native compiling to an iOS binary) instead of a native Swift app embedding a Swift Wasm runtime — a materially different application architecture, not a drop-in swap for WasmKit within the current Swift-based `ios/` host. Recorded here as a real alternative worth knowing about, not evaluated further within this project's scope (Swift/WasmKit on iOS)
+
 ## Milestone 2: Minimal FFI round trip via `wasm` + WasmKit (MoonBit wasm → iOS simulator call) — SUCCEEDED
 
 Goal: verify the alternative route surfaced by the `wasee-moon` survey — a MoonBit function compiled to core `wasm`, loaded and called from Swift via WasmKit on an iOS simulator — before committing to it as Milestone 1's replacement.
