@@ -17,3 +17,19 @@ moonbit-version
 
 # moon build trace output
 trace.json
+
+# Xcode / Swift (see also github/gitignore Xcode.gitignore, Swift.gitignore)
+ios/**/xcuserdata/
+ios/**/*.hmap
+ios/**/*.dSYM
+ios/**/*.dSYM.zip
+
+# Tuist-generated Xcode project/workspace and build artifacts (run `tuist generate` to recreate)
+ios/*.xcodeproj/
+ios/*.xcworkspace/
+ios/Derived/
+ios/Tuist/.build/
+
+# guest.wasm is a moon build artifact, not source; copy it from
+# _build/wasm/release/build/guest/guest.wasm before building the iOS app
+ios/Resources/*.wasm
