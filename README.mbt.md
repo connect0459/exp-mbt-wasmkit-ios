@@ -23,3 +23,15 @@ call-overhead concern is de-risked (see `docs/todo.md` for benchmark
 numbers and caveats — measurements are simulator-only so far). `guest.wasm`'s
 build is now automated via a Tuist pre-build script; see `justfile` for the
 one-time `ios-generate` seeding step needed on a fresh clone.
+
+## Documentation
+
+See [docs/todo.md](https://github.com/connect0459/mbt-wasmkit-ios/blob/main/docs/todo.md) for the milestone plan and decision log — the project's primary record of what's been verified, what broke, and why.
+
+## Contributing
+
+See [CONTRIBUTING.md](https://github.com/connect0459/mbt-wasmkit-ios/blob/main/CONTRIBUTING.md).
+
+## License
+
+[Apache-2.0](https://github.com/connect0459/mbt-wasmkit-ios/blob/main/LICENSE)
