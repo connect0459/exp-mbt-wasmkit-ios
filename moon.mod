@@ -9,7 +9,7 @@
 //   "moonbitlang/x@0.4.6",
 // }
 
-name = "connect0459/mbt_wasmkit_ios"
+name = "connect0459/exp_mbt_wasmkit_ios_guest"
 
 version = "0.1.0"
 

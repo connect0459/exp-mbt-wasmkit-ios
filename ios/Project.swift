@@ -31,8 +31,8 @@ let project = Project(
               exit 1
             fi
             PROJECT_ROOT="$(cd "$SRCROOT/.." && pwd)"
-            (cd "$PROJECT_ROOT" && "$MOON_BIN" build guest --target wasm --release)
-            cp "$PROJECT_ROOT/_build/wasm/release/build/guest/guest.wasm" "$SRCROOT/Resources/guest.wasm"
+            (cd "$PROJECT_ROOT" && "$MOON_BIN" build --target wasm --release)
+            cp "$PROJECT_ROOT/_build/wasm/release/build/exp_mbt_wasmkit_ios_guest.wasm" "$SRCROOT/Resources/guest.wasm"
             """,
           name: "Build MoonBit guest.wasm",
           outputPaths: ["$(SRCROOT)/Resources/guest.wasm"],

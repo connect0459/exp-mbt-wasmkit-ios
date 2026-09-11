@@ -1,5 +1,0 @@
-// import {
-//   "connect0459/mbt_wasmkit_ios" @lib,
-// }
-
-pkgtype(kind: "executable")

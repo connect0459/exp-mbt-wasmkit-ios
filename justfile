@@ -21,8 +21,8 @@ verify:
 # no Copy Bundle Resources entry for guest.wasm. After that, the iOS
 # target's own pre-build script keeps it up to date on every build.
 build-guest-wasm:
-    moon build guest --target wasm --release
-    cp _build/wasm/release/build/guest/guest.wasm ios/Resources/guest.wasm
+    moon build --target wasm --release
+    cp _build/wasm/release/build/exp_mbt_wasmkit_ios_guest.wasm ios/Resources/guest.wasm
 
 # Generate the Tuist-managed Xcode project for the iOS host
 ios-generate: build-guest-wasm

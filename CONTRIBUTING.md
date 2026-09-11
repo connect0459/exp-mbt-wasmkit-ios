@@ -36,10 +36,9 @@ pre-commit run --all-files
 
 ## Project structure
 
-- `mbt_wasmkit_ios.mbt` / `cmd/main/` — the module's own library and CLI packages (scaffolding from `moon new`, not the focus of the experiment)
-- `guest/` — the MoonBit code actually under test: functions exported via `#export_name` for the `wasm` target, loaded by the iOS host
+- `guest.mbt` (repository root) — the MoonBit code actually under test: functions exported via `#export_name` for the `wasm` target, loaded by the iOS host. The module root *is* the guest package; there is no separate library/CLI scaffold.
 - `ios/` — the Tuist-managed SwiftUI app embedding [WasmKit](https://github.com/swiftwasm/WasmKit) to run `guest.wasm`
-- `docs/todo.md` — the log of what's been verified, what broke, and why; read it before changing the `guest`/`ios` boundary
+- `docs/todo.md` — the log of what's been verified, what broke, and why; read it before changing the guest/`ios` boundary
 
 ## Development workflow
 
@@ -96,9 +95,9 @@ docs: record Milestone 2 benchmark results
 ## Pull request process
 
 1. Fork the repository and create a branch: `feat/xxx`, `fix/xxx`, `docs/xxx`.
-2. Follow the Red → Green → Refactor cycle for `guest/` changes.
+2. Follow the Red → Green → Refactor cycle for guest changes.
 3. Run `just verify` and commit any resulting diffs.
-4. If the change touches `guest/`'s exported API, run `moon info` and verify the `.mbti` diff is expected.
+4. If the change touches the guest package's exported API, run `moon info` and verify the `.mbti` diff is expected.
 5. If the change affects the iOS host, rebuild via `just ios-generate` (or a plain `xcodebuild` if `Resources/guest.wasm` already exists) and confirm it still runs on a simulator.
 6. Update `docs/todo.md` if the change resolves an open question or surfaces a new one — this file is the project's primary record, more so than commit messages alone.
 7. Open a pull request — the CI matrix tests `js`, `wasm`, `wasm-gc`, and `native` for the MoonBit side; there is no iOS CI yet (see `docs/todo.md`, Milestone 1 conclusion, for why that's deliberate rather than an oversight).
@@ -107,5 +106,5 @@ docs: record Milestone 2 benchmark results
 
 - No code comments unless the **why** is genuinely non-obvious.
 - Prefer immutability; avoid mutable state unless necessary.
-- Keep `guest/`'s exported surface minimal and purpose-built for whatever is currently being verified — this is not a general-purpose FFI library.
+- Keep the guest package's exported surface minimal and purpose-built for whatever is currently being verified — this is not a general-purpose FFI library.
 - All user-facing strings (test names, error messages, doc comments) must be in **English**.
