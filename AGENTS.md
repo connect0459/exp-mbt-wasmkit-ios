@@ -21,7 +21,9 @@ This project may be released publicly. All of the following must be written in *
 
 - In the toplevel directory, there is a `moon.mod` file listing module metadata.
 
-- This project targets `native` as its primary backend, since the goal is to embed MoonBit logic into an iOS app via C FFI (see `README.md` for the experiment's rationale). Keep domain logic backend-agnostic where possible; isolate SDL3/C-interop code in packages that are only expected to build for `native`.
+- This project targets `wasm` as its primary backend. The goal is to verify whether MoonBit compiled to core `wasm` can run inside an iOS app via [WasmKit](https://github.com/swiftwasm/WasmKit), a pure-Swift Wasm interpreter (see `README.md` for the experiment's rationale). An earlier native/`llvm`-via-C-FFI route was tried first and found infeasible on the current toolchain — no intermediate C file is emitted anymore, and neither backend can produce a linkable iOS object — see `docs/todo.md` Milestone 1 for the full investigation.
+
+- The module root package *is* the guest package: exported functions live there behind `#export_name`, compiled to `guest.wasm`, and loaded by the iOS host in `ios/`. There is no separate `guest/` subdirectory or CLI scaffold.
 
 ## Coding convention
 
