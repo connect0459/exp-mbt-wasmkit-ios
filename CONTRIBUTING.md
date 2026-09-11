@@ -11,8 +11,8 @@
 ## Setup
 
 ```sh
-git clone https://github.com/connect0459/mbt-wasmkit-ios
-cd mbt-wasmkit-ios
+git clone https://github.com/connect0459/exp-mbt-wasmkit-ios
+cd exp-mbt-wasmkit-ios
 just setup
 ```
 

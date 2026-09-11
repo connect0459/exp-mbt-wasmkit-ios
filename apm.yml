@@ -1,6 +1,6 @@
-name: mbt-wasmkit-ios
+name: exp-mbt-wasmkit-ios
 version: 0.1.0
-description: APM project for mbt-wasmkit-ios
+description: APM project for exp-mbt-wasmkit-ios
 author: connect0459
 dependencies:
   apm:

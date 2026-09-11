@@ -1,7 +1,7 @@
-# mbt-wasmkit-ios
+# exp-mbt-wasmkit-ios
 
-[![CI](https://github.com/connect0459/mbt-wasmkit-ios/actions/workflows/ci.yml/badge.svg)](https://github.com/connect0459/mbt-wasmkit-ios/actions/workflows/ci.yml)
-[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/connect0459/mbt-wasmkit-ios/blob/main/LICENSE)
+[![CI](https://github.com/connect0459/exp-mbt-wasmkit-ios/actions/workflows/ci.yml/badge.svg)](https://github.com/connect0459/exp-mbt-wasmkit-ios/actions/workflows/ci.yml)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://github.com/connect0459/exp-mbt-wasmkit-ios/blob/main/LICENSE)
 
 An experimental project verifying whether [MoonBit](https://moonbitlang.com)
 logic can run inside an iOS app. The original premise — embedding MoonBit's
@@ -26,12 +26,12 @@ one-time `ios-generate` seeding step needed on a fresh clone.
 
 ## Documentation
 
-See [docs/todo.md](https://github.com/connect0459/mbt-wasmkit-ios/blob/main/docs/todo.md) for the milestone plan and decision log — the project's primary record of what's been verified, what broke, and why.
+See [docs/todo.md](https://github.com/connect0459/exp-mbt-wasmkit-ios/blob/main/docs/todo.md) for the milestone plan and decision log — the project's primary record of what's been verified, what broke, and why.
 
 ## Contributing
 
-See [CONTRIBUTING.md](https://github.com/connect0459/mbt-wasmkit-ios/blob/main/CONTRIBUTING.md).
+See [CONTRIBUTING.md](https://github.com/connect0459/exp-mbt-wasmkit-ios/blob/main/CONTRIBUTING.md).
 
 ## License
 
-[Apache-2.0](https://github.com/connect0459/mbt-wasmkit-ios/blob/main/LICENSE)
+[Apache-2.0](https://github.com/connect0459/exp-mbt-wasmkit-ios/blob/main/LICENSE)
